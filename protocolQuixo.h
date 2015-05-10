@@ -7,87 +7,87 @@
  *
  * Ecrit par : VF
  * Date :  09 / 03 / 15
- *
-   /*******************************************************/
+ * 
+/*******************************************************/
 
-#ifndef _protocolQuixo_h
-#define _protocolQuixo_h
+                #ifndef _protocolQuixo_h
+                #define _protocolQuixo_h
 
-/* Taille des chaines */
-#define TAIL_CHAIN 30
+                /* Taille des chaines */
+                #define TAIL_CHAIN 30
 
 /* Identificateurs des requetes */
-typedef enum { PARTIE, COUP } TypIdRequest;
+        typedef enum { PARTIE, COUP } TypIdRequest;
 
 /* Types d'erreur */
-typedef enum { ERR_OK,      /* Validation de la requete */
-               ERR_PARTIE,  /* Erreur sur la demande de partie */
-               ERR_COUP,    /* Erreur sur le coup joue */
-               ERR_TYP      /* Erreur sur le type de requete */
-} TypErreur;
+        typedef enum { ERR_OK,      /* Validation de la requete */
+                    ERR_PARTIE,  /* Erreur sur la demande de partie */
+                    ERR_COUP,    /* Erreur sur le coup joue */
+                    ERR_TYP      /* Erreur sur le type de requete */
+        } TypErreur;
 
-/*
+/* 
  * Structures demande de partie
  */
-typedef struct {
+        typedef struct{
 
-  TypIdRequest idRequest;      /* Identificateur de la requete */
-  char nomJoueur[TAIL_CHAIN];  /* Nom du joueur */
+            TypIdRequest idRequest;      /* Identificateur de la requete */
+            char nomJoueur[TAIL_CHAIN];  /* Nom du joueur */
 
-} TypPartieReq;
+        } TypPartieReq;
 
-typedef enum {  ROND, CROIX, VIDE } TypCube;
+        typedef enum {  ROND, CROIX, VIDE } TypCube;
 
-typedef struct {
+        typedef struct {
 
-  TypErreur err;                /* Code d'erreur */
-  TypCube signe;                /* Signe du cube */
-  char nomAdvers[TAIL_CHAIN];   /* Nom du joueur */
+            TypErreur  err;               /* Code d'erreur */
+            TypCube    signe;             /* Signe du cube */
+            char nomAdvers[TAIL_CHAIN];   /* Nom du joueur */
 
-} TypPartieRep;
+        } TypPartieRep;
 
 
-/*
+/* 
  * Definition d'une position de case
  */
-typedef unsigned char TypCase;
+        typedef int TypCase;
 
-/*
+/* 
  * Definition d'un deplacement de cube
  */
-typedef struct {
+        typedef struct {
 
-  TypCase caseDepCube;   /* Position de depart du cube */
-  TypCase caseArrCube;   /* Position d'arrivee du cube */
+            TypCase  caseDepCube;  /* Position de depart du cube */
+            TypCase  caseArrCube;  /* Position d'arrivee du cube */
 
-} TypDeplCube;
+        } TypDeplCube;
 
 
-/*
- * Structures coup du joueur
+/* 
+ * Structures coup du joueur 
  */
 
 /* Propriete des coups */
-typedef enum { DEPL_CUBE, GAGNANT, NULLE, PERDU } TypCoup;
+        typedef enum { DEPL_CUBE, GAGNANT, NULLE, PERDU } TypCoup;
 
-typedef struct {
+        typedef struct {
 
-  TypIdRequest idRequest;     /* Identificateur de la requete */
-  TypCube signeCube;          /* Signe du cube */
-  TypCoup propCoup;           /* Type de coup */
-  TypDeplCube deplCube;       /* Deplacement du cube */
+            TypIdRequest idRequest;     /* Identificateur de la requete */
+            TypCube      signeCube;     /* Signe du cube */
+            TypCoup      propCoup;      /* Type de coup */
+            TypDeplCube  deplCube;      /* Deplacement du cube */
 
-} TypCoupReq;
+        } TypCoupReq;
 
 /* Validite du coup */
-typedef enum { VALID, TIMEOUT, TRICHE } TypValCoup;
+        typedef enum { VALID, TIMEOUT, TRICHE } TypValCoup;
 
 /* Reponse a un coup */
-typedef struct {
+        typedef struct {
 
-  TypErreur err;                  /* Code d'erreur */
-  TypValCoup validCoup;           /* Validite du coup */
+            TypErreur err;                  /* Code d'erreur */
+            TypValCoup validCoup;           /* Validite du coup */
 
-} TypCoupRep;
+        } TypCoupRep;
 
 #endif
